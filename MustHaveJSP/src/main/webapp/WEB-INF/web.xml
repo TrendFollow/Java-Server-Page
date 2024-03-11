@@ -10,10 +10,44 @@
     <welcome-file>default.htm</welcome-file>
   </welcome-file-list>
   
+ 	<!-- <context-param> 
+  		<param-name>INIT_PARAM</param-name>
+  		<param-value>web.xml에 저장한 초기화 매개변수</param-value>
+  	</context-param -->
+  
   <context-param>
-  	<param-name>INIT_PARAM</param-name>
-  	<param-value>web.xml에 저장한 초기화 매개변수</param-value>
+  	<param-name>OrcleDriver</param-name>
+  	<param-value>oracle.jdbc.OracleDriver</param-value>
   </context-param>
+  <context-param>
+  	<param-name>OrcleURL</param-name>
+  	<param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>OrcleId</param-name>
+  	<param-value>musthave</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>OrclePwd</param-name>
+  	<param-value>1234</param-value>
+  </context-param>
+  
+  <session-config>
+  	<session-timeout>20</session-timeout>
+  </session-config>
+  
+  <filter>
+  	<filter-name>SetCharEncoding</filter-name>
+  	<filter-class>org.apache.catalina.filters.SetCharacterEncodingFilter</filter-class>
+  	<init-param>
+  		<param-name>encoding</param-name>
+  		<param-value>utf-8</param-value>
+  	</init-param>
+  </filter>
+  <filter-mapping>
+  	<filter-name>SetCharEncoding</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
   
   
   <!--  
