@@ -20,19 +20,19 @@
   	</context-param -->
   
   <context-param>
-  	<param-name>OrcleDriver</param-name>
+  	<param-name>OracleDriver</param-name>
   	<param-value>oracle.jdbc.OracleDriver</param-value>
   </context-param>
   <context-param>
-  	<param-name>OrcleURL</param-name>
+  	<param-name>OracleURL</param-name>
   	<param-value>jdbc:oracle:thin:@localhost:1521:xe</param-value>
   </context-param>
   <context-param>
-  	<param-name>OrcleId</param-name>
+  	<param-name>OracleId</param-name>
   	<param-value>musthave</param-value>
   </context-param>
   <context-param>
-  	<param-name>OrclePwd</param-name>
+  	<param-name>OraclePwd</param-name>
   	<param-value>1234</param-value>
   </context-param>
   
@@ -52,6 +52,15 @@
   	<filter-name>SetCharEncoding</filter-name>
   	<url-pattern>/*</url-pattern>
   </filter-mapping>
+  
+  <context-param>
+  	<param-name>POSTS_PER_PAGE</param-name>
+  	<param-value>10</param-value>
+  </context-param>
+  <context-param>
+  	<param-name>PAGES_PER_BLOCK</param-name>
+  	<param-value>5</param-value>
+  </context-param>
   
   
   <!--  

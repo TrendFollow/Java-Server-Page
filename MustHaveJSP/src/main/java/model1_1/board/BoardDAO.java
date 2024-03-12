@@ -13,6 +13,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import membership.MemberDTO;
+
 // Data Access Object 데이터베이스에 접근해 CRUD 작업을 수행하는 객체
 public class BoardDAO {
 	Connection con;
@@ -97,6 +99,43 @@ public class BoardDAO {
 		}
 		return list;
 	}// selectList()
+	
+	public List<BoardDTO> selectListPage(Map<String, Object> map){
+		List<BoardDTO> bbs = new ArrayList<>();
+		
+		try {
+			con = dataSource.getConnection();
+			
+			String query = " select * from (select Tb.*, rownum rNum from (select * from board";
+			if(map.get("searchWord")!=null) {
+				query += " where " + map.get("searchField")
+						+ " like '%"+ map.get("searchWord") +"%' ";
+			}//if
+			query += "   order by num desc) Tb) where rNum between ? and ?";
+			
+			psmt = con.prepareStatement(query);
+			psmt.setString(1, map.get("start").toString());
+			psmt.setString(2, map.get("end").toString());
+			rs = psmt.executeQuery();
+			
+			while(rs.next()) {
+				BoardDTO dto = new BoardDTO();
+				dto.setNum(rs.getString("num"));
+				dto.setTitle(rs.getString("title"));
+				dto.setContent(rs.getString("content"));
+				dto.setId(rs.getString("id"));
+				dto.setPostdate(rs.getDate("postdate"));
+				dto.setVisitcount(rs.getString("visitcount"));
+				bbs.add(dto);
+			}
+			
+		} catch (Exception e) {
+			System.out.println("selectListPage 메서드 오류 = "+e);
+		} finally {
+			close();
+		}// try-catch
+		return bbs;
+	}// selectListPage()
 	
 	// 자원해제 메서드
 	public void close() {
